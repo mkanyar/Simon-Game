@@ -1,6 +1,8 @@
 var buttonColours = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
+var started = false;
+var level = 0;
 
 $(".btn").click(function () {
   var userChosenColour = $(this).attr("id");
@@ -8,6 +10,14 @@ $(".btn").click(function () {
   //console.log(userClickedPattern);
   playSound(userChosenColour);
   animatePress(userChosenColour);
+});
+
+$(document).keypress(function () {
+  if (!false) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    started = true;
+  }
 });
 
 function nextSequence() {
@@ -23,7 +33,7 @@ function nextSequence() {
   playSound(randomChosenColour);
 }
 //calling the function to test it out.
-nextSequence();
+//nextSequence();
 
 function playSound(name) {
   var audio = new Audio("sounds/" + name + ".mp3");
