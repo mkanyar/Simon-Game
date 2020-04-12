@@ -15,8 +15,7 @@ $(document).keypress(function () {
 $(".btn").click(function () {
   var userChosenColour = $(this).attr("id");
   userClickedPattern.push(userChosenColour);
-  //console.log(userClickedPattern);
-  playSound(userChosenColour);
+
   animatePress(userChosenColour);
 
   //when you push into an array the length increases then the first if condition in the check answer gets called, when you push again the length gets updated then goes back to the if condition in the check answer. it is 2 processes happening simultaneously
@@ -25,8 +24,8 @@ $(".btn").click(function () {
 
 function checkAnswer(currentLevel) {
   if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
-    console.log("success");
-
+    console.log(userChosenColour);
+    playSound(userChosenColour);
     if (userClickedPattern.length === gamePattern.length) {
       setTimeout(function () {
         nextSequence();
@@ -34,8 +33,15 @@ function checkAnswer(currentLevel) {
     }
   } else {
     console.log("wrong");
+    playSound("wrong");
+    $("body").addClass("game-over");
+    setTimeout(function () {
+      $("body").removeClass("game-over");
+    }, 200);
+    $("#level-title").text(" Game Over, Press Any Key To Restart ");
   }
 }
+
 function nextSequence() {
   userClickedPattern = [];
   level++;
